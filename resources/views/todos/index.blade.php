@@ -1,3 +1,10 @@
+@extends('layout.app')
+
+@section('title')
+    ToDo List
+@endsection
+@section('content')
+
 
 <body>
     <h1 class="text-center my-5">ToDo List</h2>
@@ -14,7 +21,13 @@
                         @foreach ($todos as $todo)
                             <li class="list-group-item">{{ $todo ->name}}</li>
 
+                            @if (!$todo->completed)
+                               
+                            <a href="/todos/{{$todo->id}}/complete" class="btn btn-warning btn-sm float-right">Complete</a>
+                            
+                            @endif
                             <a href="/todos/{{$todo->id}}" class="btn btn-primary btn-sm float-right">View</a>
+                            
                         @endforeach
 
                 </ul>
@@ -24,9 +37,12 @@
             </div>
         </div>
 
-        </div>
+    </div>
 
        
 </div>  
           
 </body>
+
+    
+@endsection

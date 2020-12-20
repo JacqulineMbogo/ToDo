@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
-    <title>ToDo Item</title>
-</head>
-<body>
+@extends('layout.app')
+@section('title')
+    {{$todo->name}}
+@endsection
+@section('content')
 
   
 
@@ -16,7 +11,7 @@
 
     </h2>
     <div class="row justify-content-center">
-        <div class="col md-5">
+        <div class="col md-6">
 
             <div class="card card-default">
 
@@ -26,10 +21,12 @@
                 <div class="card-body">
                     {{$todo->description}}
                 </div>
+                <a href="/todos/{{$todo->id}}/edit" class="btn btn-info my-2">Edit</a>
+                <a href="/todos/{{$todo->id}}/delete" class="btn btn-danger my-2 ">Delete</a>
             </div>
+           
             
         </div>
     </div>
     
-</body>
-</html>
+    @endsection

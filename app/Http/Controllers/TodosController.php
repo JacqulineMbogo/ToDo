@@ -30,4 +30,97 @@ class TodosController extends Controller
         return view('todos.show')->with('todo',$todo );
 
     }
+    public function create(){
+
+        return view('todos.create');
+    }
+
+    public function store(){
+
+        //dd(request()->all());
+
+        $this->validate(request(),
+        [
+
+            'name'=>'required',
+            'description'=>'required'
+
+        ]
+    
+    );
+        $data = request()->all();
+
+        $todo = new ToDo();
+
+        $todo->name = $data['name'];
+        $todo->description = $data['description'];
+        $todo->completed = false;
+
+        $todo->save();
+
+        session()->flash('success','ToDo created successfully');
+        return redirect('/todos');
+
+    }
+
+    public function edit($todoId){
+
+
+        $todo = Todo::find($todoId);
+        return view('todos.edit')->with('todo',$todo );
+
+
+    }
+
+    public function update(){
+
+        $this->validate(request(),
+        [
+
+            'name'=>'required',
+            'description'=>'required'
+
+        ]
+    
+    );
+        $data = request()->all();
+
+        $todo = Todo::find($data['todo_id']);
+
+        $todo->name = $data['name'];
+        $todo->description = $data['description'];
+        $todo->completed = false;
+
+        $todo->save();
+
+        session()->flash('success','ToDo updated successfully');
+
+        return redirect('/todos');
+
+
+    }
+
+    public function delete($todoId){
+
+        $todo = Todo::find($todoId);
+        $todo->delete();
+
+        session()->flash('success','ToDo deleted successfully');
+        return redirect('/todos');
+
+
+    }
+
+    public function complete($todoId){
+
+        $todo = Todo::find($todoId);
+        $todo->completed = true;
+
+        $todo->save();
+
+        session()->flash('success','ToDo completed successfully');
+        return redirect('/todos');
+
+
+    }
 }
